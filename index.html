@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=7">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><%= page.title %>&#8482</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="shortcut icon" href="kiwi.ico" type="image/x-icon">
+    <style>
+    
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    cursor-pointer: default; 
+    
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+html, body {
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #fffdfa;/* #ffffff */
+    color: #173b3a;/* #222 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    position: relative;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+span{
+    font-weight: 700;
+}
+
+.lsx {
+    font-weight: 100;
+    font-size: 13px;
+    color: #334155;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+}
+
+.logo-mark {
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    border-radius: 9px;
+    background: #00ff7f;
+    color: var(--logo-text);
+    font-weight: 800;
+}
+
+.logo-mark img {
+    width: 20px;
+}
+
+.header {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+/* Container principal (Landing/Offer) */
+.container {
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+    margin: auto;
+}
+
+/* Container específico para páginas de texto longo (Termos de Uso) */
+.container-legal {
+    width: 100%;
+    max-width: 800px;
+    text-align: left;
+    position: relative;
+    z-index: 10;
+    margin: auto;
+}
+
+.content {
+    font-size: 18px;
+    font-weight: 100;
+    line-height: 1.6;
+}
+
+.content p {
+    margin-bottom: 24px;
+}
+
+.content h2 {
+    font-size: 22px;
+    margin-top: 32px;
+    margin-bottom: 16px;
+}
+
+.content ul {
+    margin-bottom: 24px;
+    padding-left: 20px;
+}
+
+.content li {
+    margin-bottom: 8px;
+}
+
+.product-image {
+    width: 100%;
+    max-width: 380px;
+    height: auto;
+    object-fit: contain;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: clamp(22px, 5vw, 28px);
+    margin-bottom: 15px;
+    font-family: "Oswald", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.description {
+    font-size: clamp(14px, 3.5vw, 16px);
+    color: #173b3a;/*#666*/
+    line-height: 1.6;
+    margin-bottom: 28px;
+}
+
+.continue-button {
+    font-family: "Oswald", sans-serif;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 350px;
+    padding: 16px 25px;
+    background: #0B6B69; /*#2563eb*/
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 6px;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.continue-button:hover {
+    background: #025452;/*1d4ed8*/
+    transform: translateY(-2px);
+}
+
+.continue-button i {
+    font-size: 20px;
+    animation: arrowMove 0.9s ease-in-out infinite;
+}
+
+@keyframes arrowMove {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(6px);
+    }
+}
+
+.disclosure {
+    margin-top: 25px;
+    font-size: clamp(10px, 2.5vw, 11px);
+    color: #173b3a;/*#999*/
+    line-height: 1.5;
+}
+
+
+#redirect-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 999999;
+    justify-content: center;
+    align-items: center;
+    cursor: default;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.popup-box {
+    position: relative;
+    background: #ffffff;
+    padding: 35px 25px 30px;
+    border-radius: 8px;
+    max-width: 450px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+}
+
+.popup-close {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    background: none;
+    border: none;
+    color: #777;
+    font-size: 27px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+}
+
+.popup-close:hover {
+    color: #222;
+}
+
+.popup-box h2 {
+    font-size: 22px;
+    color: #222;
+    margin: 0 0 12px;
+}
+
+.popup-box p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #555;
+    margin: 0 0 22px;
+}
+
+.popup-btn {
+    display: inline-block;
+    background: #287cfa;
+    color: #fff;
+    padding: 12px 25px;
+    font-weight: bold;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.popup-btn:hover {
+    background: #1765d1;
+}
+
+.popup-btn-reject {
+    display: inline-block;
+    background: #ffffff;
+    color: #287cfa;
+    padding: 10px 23px;
+    font-weight: bold;
+    border: 2px solid #287cfa;
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.popup-btn-reject:hover {
+    border: 2px solid #1765d1;
+}
+
+
+/* Rodapé */
+footer {
+    width: 100%;
+    border-top: 1px solid #eee;
+    padding: 2rem 1.25rem;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #173b3a;/*#666*/
+    margin-top: 40px;
+    position: relative;
+    z-index: 10;
+}
+
+.footer-links {
+    margin-bottom: 1rem;
+}
+
+.footer-links a {
+    color: #173b3a;
+    text-decoration: underline;
+    margin: 0 0.5rem;
+}
+
+.disclaimer {
+    max-width: 680px;
+    margin: 0 auto;
+    font-size: clamp(10px, 2.5vw, 11px);
+    line-height: 1.5;
+    opacity: 0.75;
+}
+
+/* Esferas de Fundo Animadas */
+.sun, .sun2, .sun3 {
+    opacity: 0.3;
+    position: absolute;
+    top: -1050px;
+    width: 2200px;
+    height: 1200px;
+    border-radius: 50%;
+    animation-name: sunrise2;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.sun {
+    background-color: red;
+    left: -300px;
+    animation-duration: 10s;
+    animation-delay: 1s;
+}
+
+.sun2 {
+    background-color: orange;
+    left: -1200px;
+    animation-duration: 14s;
+    animation-delay: 2s;
+}
+
+.sun3 {
+    background-color: yellow;
+    left: -600px;
+    animation-duration: 12s;
+    animation-delay: 0s;
+}
+
+@keyframes sunrise2 {
+    0% { transform: translate(0px, 0px); }
+    25% { transform: translate(150px, 50px); }
+    50% { transform: translate(300px, 10px); }
+    75% { transform: translate(150px, 50px); }
+    100% { transform: translate(0px, 0px); }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .sun, .sun2, .sun3 {
+        width: 1400px;
+        height: 800px;
+        top: -650px;
+    }
+    .sun { left: -200px; }
+    .sun2 { left: -700px; }
+    .sun3 { left: -400px; }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 15px;
+    }
+    .sun, .sun2, .sun3 {
+        width: 1000px;
+        height: 600px;
+        top: -480px;
+    }
+    .sun { left: -150px; }
+    .sun2 { left: -500px; }
+    .sun3 { left: -300px; }
+  
+}
+
+    </style>
+</head>
+<body>
+    <div class="sun"></div>
+    <div class="sun2"></div>
+    <div class="sun3"></div>
+    
+    <div id="redirect-overlay">
+        <div class="popup-box">
+            <button class="popup-close" aria-label="Close">&times;</button>
+
+            <h2><i class="ri-cookie-line"></i> Cookie Policy</h2>
+
+            <p>
+                We use cookies to improve your browsing experience,
+                analyze website traffic, and personalize content.
+                By continuing to browse, you agree to our use of cookies.
+            </p>
+
+            <span class="popup-btn-reject">Reject</span>
+            <span class="popup-btn">Accept Cookies</span>
+        </div>
+    </div>
+    
+    <main class="container">
+    
+        <a
+            href="<%= page.affiliate_link %>"
+            target="_blank"
+            rel="nofollow sponsored noopener"
+        >
+        <img
+            src="imgi_37_PRODx2-500px.webp"
+            alt="<%= page.title %>"
+            class="product-image"
+        >
+        </a>
+
+
+    <h1><span>AudiFort&#8482</span></h1>
+
+        <!--p class="description">
+            <%= page.description %>
+        </p-->
+        <img
+            src="certifications.png"
+            alt="<%= page.title %>"
+            class="product-image"
+        >
+        <a
+            href="<%= page.affiliate_link %>"
+            class="continue-button"
+            target="_blank"
+            rel="nofollow sponsored noopener"
+        >
+            Continue
+            <i class="ri-arrow-right-line"></i>
+        </a>
+
+        <p class="disclosure">
+            This page contains affiliate links.
+            We may earn a commission from qualifying purchases
+            at no additional cost to you.
+        </p>
+    </main>
+    <footer>
+    <div class="footer-links">
+        <a href="/privacy-policy" target="_blank" rel="nofollow sponsored noopener">Privacy Policy</a> | 
+        <a href="/terms-of-use" target="_blank" rel="nofollow sponsored noopener">Terms of Use</a>
+    </div>
+    <p class="disclaimer">This website is not affiliated with Google or any Google entity. Once you leave Google, Google is no longer responsible for your experience. Responsibility lies solely with this website. We make every effort to clearly identify and disclose all product tests and use real results.
+    <br><br>
+    <strong>ClickBank Disclaimer:</strong> Click Sales Inc. is the retailer of products on this website. CLICKBANK® is a registered trademark of Click Sales, Inc., a Delaware corporation located at 1444 S. Entertainment Ave., Suite 410, Boise, ID 83709, USA, and used by permission. ClickBank's role as retailer does not constitute an endorsement, approval, or review of these products or any claims, statements, or opinions used in their promotion.
+    <br><br>  
+    &copy; 2026 KIWI PUBLISH&#8482. All rights reserved.</p>
+</footer>
+    
+    <script>
+        // Usa a variável correta que você declarou em cima
+        const affiliateLink = <%- JSON.stringify(page.affiliate_link) %>;
+        
+        // Verifica se o usuário já clicou anteriormente
+        const jaClicou = localStorage.getItem('popup_clicado');
+
+        // Se ele ainda NÃO clicou, inicia a contagem do pop-up
+        if (!jaClicou) {
+            setTimeout(() => {
+                const overlay = document.getElementById("redirect-overlay");
+                if (overlay) {
+                    // Exibe o pop-up
+                    overlay.style.display = "flex";
+                    
+                    // Ao clicar, salva no localStorage e redireciona usando a variável certa
+                    overlay.addEventListener("click", () => {
+                        localStorage.setItem('popup_clicado', 'true');
+                        window.location.href = affiliateLink;
+                    });
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
